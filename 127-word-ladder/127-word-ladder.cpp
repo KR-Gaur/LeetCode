@@ -15,28 +15,25 @@ public:
     
 int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
     
-    unordered_map<string, bool> s;
+    unordered_map<string, bool> wordExistsAndNotVisited;
     queue<string> q;
     bool endWordPresent = false;
     
     int wordsLen = wordList.size();
     for(int i=0; i<wordsLen; i++){
-        s[wordList[i]] = false;
+        wordExistsAndNotVisited[wordList[i]] = false;
         if(wordList[i] == endWord)
             endWordPresent = true;        
     }
     
-    // for(auto itr = s.begin(); itr!=s.end(); itr++)
-    //     cout<< *itr << " ";
-    //     cout << endl;
+  
     if(!endWordPresent)
         return 0;
     
     q.push(beginWord);
     
-    s[beginWord] = true;
+    wordExistsAndNotVisited[beginWord] = true;
     
-    int ans = 0;
     int len = 0;
     int depth = 1;
     // O(n)
@@ -68,16 +65,14 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
                         continue;
                     if(curr == endWord)         // O(m)
                         return depth+1;
-                    if(s.find(curr) != s.end() && !s[curr]){
+                    if(wordExistsAndNotVisited.find(curr) != wordExistsAndNotVisited.end() 
+                       && !wordExistsAndNotVisited[curr]){
                         q.push(curr);
-                        // cout<< " pushed " << curr<<" ,";
-                        s[curr] = true;
-                        // else cout<< " visited "<< curr<< " ";
+                        wordExistsAndNotVisited[curr] = true;
                     }
                 }  
                 curr[i]=charToReplace;
             }
-            
             len--;
         }
  		depth++;
