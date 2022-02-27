@@ -39,13 +39,13 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
     int ans = 0;
     int len = 0;
     int depth = 1;
+    // O(n)
     while(!q.empty()){
         len = q.size();
         while(len>0){
             string curr = q.front();
-            // cout<< "iternating "<< curr << ", ";
         	q.pop();
-            // cout<< " -- " << curr << " ";
+            
             // O(n^2 * m)
             
         	// for(int i=0; i<wordList.size(); i++){
@@ -57,22 +57,21 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         	// s[wordList[i]] = true;
         	// }
         	// }
+            
+            // O(n * m^2)
             int l=curr.size();
             for(int i=0; i<l; i++){
                 char charToReplace = curr[i];
-                for(char c='a'; c<='z'; c++){
+                for(char c='a'; c<='z'; c++){   // O(m*26)
                     curr[i] = c;
                     if(c == charToReplace)
                         continue;
-                    if(curr == endWord)
+                    if(curr == endWord)         // O(m)
                         return depth+1;
-                    if(s.find(curr) != s.end()){
-                        if (!s[curr])
-                            {   
-                                q.push(curr);
-                                // cout<< " pushed " << curr<<" ,";
-                                s[curr] = true;
-                            }
+                    if(s.find(curr) != s.end() && !s[curr]){
+                        q.push(curr);
+                        // cout<< " pushed " << curr<<" ,";
+                        s[curr] = true;
                         // else cout<< " visited "<< curr<< " ";
                     }
                 }  
