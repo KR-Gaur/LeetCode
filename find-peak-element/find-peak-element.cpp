@@ -20,6 +20,6 @@ public:
                 high = mid;
             
         }
-        return 0;
+        return -1;
     }
 };
